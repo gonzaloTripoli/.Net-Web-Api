@@ -4,16 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrototypeApp.DAL.Model
+namespace Prototype.Services.ViewModels.Customer
 {
-    public class Customer : EntityBase
+    public class CustomerList
     {
-        
-        public string Name  { get; set; }
+        public string Name { get; set; }
 
         public string Mail { get; set; }
-
-        public List<Order> Orders { get; set; }
 
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Prototype.DAL;
 
@@ -11,9 +12,10 @@ using Prototype.DAL;
 namespace PrototypeApp.DAL.Migrations
 {
     [DbContext(typeof(PrototypeDbContext))]
-    partial class PrototypeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220804213032_ChangeDBv2")]
+    partial class ChangeDBv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,6 +57,9 @@ namespace PrototypeApp.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Item");
@@ -71,7 +76,7 @@ namespace PrototypeApp.DAL.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Price")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PurchaseDate")
@@ -80,6 +85,8 @@ namespace PrototypeApp.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Order");
                 });
@@ -96,23 +103,10 @@ namespace PrototypeApp.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuantityAvailable")
-                        .HasColumnType("int");
-
-                    b.Property<int>("itemId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("itemId");
 
                     b.ToTable("Product");
                 });
@@ -125,22 +119,11 @@ namespace PrototypeApp.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("PrototypeApp.DAL.Model.Product", b =>
-                {
                     b.HasOne("PrototypeApp.DAL.Model.Order", null)
-                        .WithMany("Products")
+                        .WithMany("Orders")
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("PrototypeApp.DAL.Model.Item", "item")
-                        .WithMany("Products")
-                        .HasForeignKey("itemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("item");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("PrototypeApp.DAL.Model.Customer", b =>
@@ -148,14 +131,9 @@ namespace PrototypeApp.DAL.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("PrototypeApp.DAL.Model.Item", b =>
-                {
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("PrototypeApp.DAL.Model.Order", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
