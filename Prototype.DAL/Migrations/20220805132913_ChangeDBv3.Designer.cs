@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Prototype.DAL;
 
@@ -11,9 +12,10 @@ using Prototype.DAL;
 namespace PrototypeApp.DAL.Migrations
 {
     [DbContext(typeof(PrototypeDbContext))]
-    partial class PrototypeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220805132913_ChangeDBv3")]
+    partial class ChangeDBv3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
