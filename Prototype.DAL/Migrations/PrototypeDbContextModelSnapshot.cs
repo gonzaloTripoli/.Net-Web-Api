@@ -40,7 +40,7 @@ namespace PrototypeApp.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customer", (string)null);
                 });
 
             modelBuilder.Entity("PrototypeApp.DAL.Model.Item", b =>
@@ -57,7 +57,7 @@ namespace PrototypeApp.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Item");
+                    b.ToTable("Item", (string)null);
                 });
 
             modelBuilder.Entity("PrototypeApp.DAL.Model.Order", b =>
@@ -81,7 +81,7 @@ namespace PrototypeApp.DAL.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("PrototypeApp.DAL.Model.Product", b =>
@@ -114,7 +114,7 @@ namespace PrototypeApp.DAL.Migrations
 
                     b.HasIndex("itemId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("PrototypeApp.DAL.Model.Order", b =>

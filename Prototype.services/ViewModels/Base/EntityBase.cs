@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrototypeApp.DAL.Model
+namespace Prototype.Services.ViewModels.Base
 {
     public class EntityBase
     {
-       
         public int Id { get; set; }
-
     }
 }
