@@ -9,7 +9,8 @@ namespace PrototypeApp.DAL.Model
     public class EntityBase
     {
        
-        public int Id { get; set; }
+
+        public string Id { get; set; }
 
     }
 }

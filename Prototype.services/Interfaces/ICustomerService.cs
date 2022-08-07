@@ -6,9 +6,15 @@ namespace Prototype.Services.Interfaces
 {
     public interface ICustomerService
     {
-        CustomerCreateViewModel Get(int id);
+        CustomerCreateViewModel Get(string id);
 
-        int Create(CustomerCreateViewModel viewModel);
+        string Create(CustomerCreateViewModel viewModel);
+
+        List<CustomerCreateViewModel> Get( );
+
+        CustomerCreateViewModel Update(CustomerCreateViewModel viewModel);
+
+        CustomerCreateViewModel Delete(string id);
 
     }
 }

@@ -26,28 +26,67 @@ namespace Prototype.Services.Services
             _mapper = mapper != null ? mapper : throw new ArgumentNullException(nameof(mapper));
         }
 
-        public CustomerCreateViewModel Get(int id)
+        public CustomerCreateViewModel Get(string id)
         {
-            
-                var customer = _context.Customer
-                    .Include(x => x.Orders)
-                    .Where(x => x.Id == id).FirstOrDefault();
 
+            var customer = GetCustomer(id);
+            customer.Orders = new List<Order>();
+            var viewModel = _mapper.Map<CustomerCreateViewModel>(customer);
 
-                var viewModel = _mapper.Map<CustomerCreateViewModel>(customer);
-
-                return viewModel;
+            return viewModel;
 
 
         }
 
-        public int Create(CustomerCreateViewModel viewModel)
+        public string Create(CustomerCreateViewModel viewModel)
         {
-            Customer customer = _mapper.Map<Customer>(viewModel); 
+            Customer customer = _mapper.Map<Customer>(viewModel);
             _context.Add(customer);
+
             _context.SaveChanges();
             return viewModel.Id;
         }
 
+
+        public List<CustomerCreateViewModel> Get()
+        {
+            List<CustomerCreateViewModel> customerList = new List<CustomerCreateViewModel>();
+            customerList.InsertRange(0, _context.Customer.Select(x => _mapper.Map<CustomerCreateViewModel>(x)));
+            return customerList;
+        }
+
+        public CustomerCreateViewModel Update(CustomerCreateViewModel viewModel)
+        {
+            Customer customer = _mapper.Map<Customer>(viewModel);
+
+            _context.Update(customer);
+            _context.SaveChanges();
+
+            return viewModel;
+
+        }
+
+        public CustomerCreateViewModel Delete(string id)
+        {
+            var customer = GetCustomer(id);
+            if(customer != null)
+            {
+                _context.Remove(customer);
+                _context.SaveChanges();
+            }
+
+            return _mapper.Map<CustomerCreateViewModel>(customer);
+
+        }
+
+        private Customer GetCustomer(string id)
+        {
+            var customer = _context.Customer
+               .Include(x => x.Orders)
+               .Where(x => x.Id == id).FirstOrDefault();
+
+            return customer;
+
+        }
     }
 }
