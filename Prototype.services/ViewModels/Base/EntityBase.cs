@@ -8,6 +8,6 @@ namespace Prototype.Services.ViewModels.Base
 {
     public class EntityBase
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }

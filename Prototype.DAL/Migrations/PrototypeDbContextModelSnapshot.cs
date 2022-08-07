@@ -24,11 +24,8 @@ namespace PrototypeApp.DAL.Migrations
 
             modelBuilder.Entity("PrototypeApp.DAL.Model.Customer", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Mail")
                         .IsRequired()
@@ -40,16 +37,13 @@ namespace PrototypeApp.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customer", (string)null);
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("PrototypeApp.DAL.Model.Item", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -57,19 +51,17 @@ namespace PrototypeApp.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Item", (string)null);
+                    b.ToTable("Item");
                 });
 
             modelBuilder.Entity("PrototypeApp.DAL.Model.Order", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
@@ -81,23 +73,20 @@ namespace PrototypeApp.DAL.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Order", (string)null);
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("PrototypeApp.DAL.Model.Product", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrderId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
@@ -105,8 +94,9 @@ namespace PrototypeApp.DAL.Migrations
                     b.Property<int>("QuantityAvailable")
                         .HasColumnType("int");
 
-                    b.Property<int>("itemId")
-                        .HasColumnType("int");
+                    b.Property<string>("itemId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -114,7 +104,7 @@ namespace PrototypeApp.DAL.Migrations
 
                     b.HasIndex("itemId");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("PrototypeApp.DAL.Model.Order", b =>

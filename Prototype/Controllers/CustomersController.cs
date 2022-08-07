@@ -18,14 +18,15 @@ namespace PrototypeApp.Controllers
         }
 
 
-        //[HttpGet]
-        //[Route("customer")]
-        //public async Task<ActionResult<List<CustomerCreateViewModel>>> Get()
-        //{
-        //    return Ok(customers);
-        //}
+        [HttpGet]
+        [Route("customer")]
+        public async Task<ActionResult<List<CustomerCreateViewModel>>> Get()
+        {
+            var customers = _customerService.Get();
+            return Ok(customers);
+        }
         [HttpGet("{id}")]
-        public async Task<ActionResult<CustomerCreateViewModel>> Get(int id)
+        public async Task<ActionResult<CustomerCreateViewModel>> Get(string id)
         {
             var customer = _customerService.Get(id);
             if (customer == null)
@@ -42,33 +43,32 @@ namespace PrototypeApp.Controllers
 
         }
 
-        //[HttpPut]
-        //public async Task<ActionResult<CustomerCreateViewModel>> UpdateCustomer(CustomerCreateViewModel request)
-        //{
-        //    var customer = customers.Find(c => c.Id == request.Id);
-        //    if (customer == null)
-        //    {
-        //        return BadRequest("Customer not found");
-        //    }
-        //    customer.Name = request.Name;
-        //    customer.Mail = request.Mail;
-        //    customers.Add(customer);
-        //    return Ok(customer);
+        [HttpPut]
+        public async Task<ActionResult<CustomerCreateViewModel>> UpdateCustomer(CustomerCreateViewModel request)
+        {
+            var customer = _customerService.Update(request);
+            if (customer == null)
+            {
+                return BadRequest("Customer not found");
+            }
 
-        //}
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<CustomerCreateViewModel>> DeleteCustomer(string id)
-        //{
-        //    var customer = customers.Find(c => c.Id == id);
-        //    if (customer == null)
-        //    {
-        //        return BadRequest("Customer not found");
-        //    }
-        //   customers.Remove(customer);
+            return Ok(customer);
+        }
 
-        //    return Ok(customers);
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<CustomerCreateViewModel>> DeleteCustomer(string id)
+        {
+            var customer = _customerService.Delete(id);
+            if (customer == null)
+            {
+                return BadRequest("Customer not found");
+            }
+            
 
-        //}
+            return Ok(customer);
+
+        }
+
 
     }
 }
